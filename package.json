@@ -1,7 +1,7 @@
 {
   "name": "anduschain-miner",
   "productName": "anduschain-miner",
-  "version": "1.0.0",
+  "version": "0.7.0",
   "description": "My Electron application description",
   "main": ".webpack/main",
   "scripts": {
@@ -61,12 +61,17 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.1.0",
+    "electron-is-dev": "^1.1.0",
+    "electron-log": "^3.0.6",
     "electron-squirrel-startup": "^1.0.0",
+    "electron-timber": "^0.5.1",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
     "@electron-forge/cli": "6.0.0-beta.39",
