@@ -1,8 +1,10 @@
 import { app, Menu, shell } from 'electron';
-import { DefaultSetting, isMac } from '../config';
+import { DefaultSetting, isMac, nodeOption } from '../config';
+import path from "path";
+import os from "os";
 
 const template = [
-    ...(process.platform === 'darwin' ? [{
+    ...(process.platform === 'darwin' && [{
         label: app.getName(),
         submenu: [
             { role: 'about' },
@@ -13,14 +15,17 @@ const template = [
             { type: 'separator' },
             { role: 'quit' }
         ]
-    }] : [
-        {
-            label: 'File',
-            submenu: [
-                { role: 'quit' }
-            ]
-        }
-    ]),
+    }]),
+    {
+        label: 'File',
+        submenu: [
+            process.platform === 'darwin' ? { role: 'about' } : { role: 'quit' },
+            {
+                label: 'backup',
+                click () { shell.showItemInFolder(nodeOption.dataDir[1]) }
+            }
+        ]
+    },
     {
         label: 'Edit',
         submenu: [
@@ -53,7 +58,7 @@ const template = [
             { role: 'toggledevtools' },
             {
                 label: 'Show Log File',
-                click () { shell.showItemInFolder(DefaultSetting.LOG_PATH()) }
+                click () { shell.showItemInFolder(DefaultSetting.LOG_PATH) }
             }
         ]
     },
@@ -62,7 +67,7 @@ const template = [
         submenu: [
             {
                 label: 'Apply Miner',
-                click () { require('electron').shell.openExternalSync('https://anduschain.io') }
+                click () { shell.openExternalSync('https://anduschain.io') }
             }
         ]
     }
