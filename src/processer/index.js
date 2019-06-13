@@ -14,6 +14,8 @@ function Start() {
     ipc();
     binaryManager.Start();
 
+    // FIXME : 바이너리 상태 확인후 node running
+
     console.log("-----nodeManager-----", nodeManager.isRunning)
 
     nodeManager.Start();

@@ -84,7 +84,7 @@ class BinaryManager extends EventEmitter {
                     this.BinaryProcess(data);
                 }
             });
-        }, 10000) // 10분마다 확인 : 600000
+        }, 10000) // FIXME : 10분마다 확인 : 600000
     };
 
     Stop = () => {
