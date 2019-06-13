@@ -1,10 +1,8 @@
 import { app, Menu, shell } from 'electron';
-import { DefaultSetting, isMac, nodeOption } from '../config';
-import path from "path";
-import os from "os";
+import { DefaultSetting, nodeOption } from '../config';
 
 const template = [
-    ...(process.platform === 'darwin' && [{
+    {
         label: app.getName(),
         submenu: [
             { role: 'about' },
@@ -13,17 +11,12 @@ const template = [
             { role: 'hideothers' },
             { role: 'unhide' },
             { type: 'separator' },
-            { role: 'quit' }
-        ]
-    }]),
-    {
-        label: 'File',
-        submenu: [
-            process.platform === 'darwin' ? { role: 'about' } : { role: 'quit' },
             {
                 label: 'backup',
                 click () { shell.showItemInFolder(nodeOption.dataDir[1]) }
-            }
+            },
+            { type: 'separator' },
+            { role: 'quit' }
         ]
     },
     {
@@ -38,24 +31,10 @@ const template = [
         ]
     },
     {
-        label: 'Window',
-        submenu: [
-            { role: 'minimize' },
-            { role: 'zoom' },
-            ...(isMac ? [
-                { type: 'separator' },
-                { role: 'front' },
-                { type: 'separator' },
-                { role: 'window' }
-            ] : [
-                { role: 'close' }
-            ])
-        ]
-    },
-    {
         label: 'Debug',
         submenu: [
             { role: 'toggledevtools' },
+            { type: 'separator' },
             {
                 label: 'Show Log File',
                 click () { shell.showItemInFolder(DefaultSetting.LOG_PATH) }

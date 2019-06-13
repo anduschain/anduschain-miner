@@ -1,16 +1,36 @@
 import { app } from 'electron';
 import MinerApp from './app';
-import { nodeOption, DefaultSetting, isMac } from './config';
+import ipc from './ipc';
+import binaryManager from './modules/BinaryManager';
+import nodeManager from './modules/NodeManager';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
     app.quit();
 }
 
-app.on('ready', () => {
+function Start() {
     MinerApp.Create();
+    ipc();
+    binaryManager.Start();
 
-    console.log(nodeOption, DefaultSetting, isMac)
+    console.log("-----nodeManager-----", nodeManager.isRunning)
+
+    nodeManager.Start();
+
+    console.log("-----nodeManager-----", nodeManager.isRunning)
+
+    console.log("app started");
+}
+
+function Stop() {
+    binaryManager.Stop();
+    nodeManager.Stop();
+    console.log("app stopped");
+}
+
+app.on('ready', () => {
+    Start() // start instances
 });
 
 app.on('window-all-closed', () => {
@@ -19,6 +39,7 @@ app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit();
     }
+
 });
 
 app.on('activate', () => {
@@ -27,4 +48,8 @@ app.on('activate', () => {
     if (MinerApp.isWindows === null) {
         MinerApp.Create();
     }
+});
+
+app.on('will-quit', () => {
+    Stop(); // stop instances
 });

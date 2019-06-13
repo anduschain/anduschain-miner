@@ -20,11 +20,9 @@ class App extends Component {
         return(
             <div>
                 <Button variant="contained" color="primary" onClick={() => {
-                    //ipcRenderer.send('link:open', "https://github.com/anduschain/anduschain-miner");
+                    // ipcRenderer.send('link:open', "https://github.com/anduschain/anduschain-miner");
+                    ipcRenderer.send('download');
                     this.logger.info("info renderer logger")
-                    this.logger.error("error renderer logger")
-                    this.logger.debug("debug renderer logger")
-                    this.logger.warn("warn renderer logger")
                 }}>
                     Hello World
                 </Button>

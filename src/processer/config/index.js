@@ -5,14 +5,18 @@ const APP_INFO = require('../../../package.json');
 const APP_NAME = APP_INFO.productName;
 const VERSION = APP_INFO.version;
 const isMac = process.platform === 'darwin';
+const PlatFrom = process.platform.replace('darwin', 'mac')
+    .replace('win32', 'win')
+    .replace('freebsd', 'linux')
+    .replace('sunos', 'linux');
 
 const logPath = () => {
-    switch (process.platform) {
+    switch (PlatFrom) {
         case "linux":
             return path.join(os.homedir(), '.config', APP_NAME, 'log.log');
-        case "darwin":
+        case "mac":
             return path.join(os.homedir(), 'Library', 'Logs', APP_NAME, 'log.log');
-        case "win32":
+        case "win":
             return path.join(os.homedir(), 'AppData', 'Roaming', APP_NAME, 'log.log');
         default :
             return os.homedir();
@@ -21,16 +25,16 @@ const logPath = () => {
 
 const DefaultSetting = {
     LOG_PATH : logPath(),
-    BINARY_URL : 'https://raw.githubusercontent.com/anduschain/andusChainGethBinary/master/clientBinaries.json',
+    BINARY_URL : 'https://raw.githubusercontent.com/anduschain/andusChainGethBinary/master/nodeBinary.json',
 };
 
 const nodeDataDir = () => {
-    switch (process.platform) {
+    switch (PlatFrom) {
         case "linux":
             return path.join(os.homedir(), '.AndusChain');
-        case "darwin":
+        case "mac":
             return path.join(os.homedir(), 'Library', 'AndusChain');
-        case "win32":
+        case "win":
             return path.join(os.homedir(), 'AppData', 'Roaming', 'AndusChain');
         default :
             return os.homedir();
@@ -46,9 +50,10 @@ const nodeOption = {
     testnet : '--testnet',
     rpcPort : ['--rpcport', '8545'],
     dataDir : ['--datadir', nodeDataDir()],
-    nedePort : ['--clientPort', ''],
+    nedePort : ['--port', '50505'],
+    nedeClientPort : ['--clientPort', '50002'],
 };
 
 export {
-    nodeOption, DefaultSetting, isMac
+    nodeOption, DefaultSetting, isMac, PlatFrom
 }
