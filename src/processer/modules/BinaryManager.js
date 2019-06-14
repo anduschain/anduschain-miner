@@ -14,7 +14,8 @@ class BinaryManager extends EventEmitter {
     constructor() {
         super();
         this.binaryHash = store.get("binary-hash");
-        this.logger = new logger('BinaryManager')
+        this.logger = new logger('BinaryManager');
+        this.isUpdate = false;
     }
 
     Download = () => {
@@ -41,6 +42,12 @@ class BinaryManager extends EventEmitter {
 
                 unzip(PlatFrom, output).then(() => {
                     this.logger.info(`node binary unzip! ${output}`);
+                    if (this.isUpdate) {
+                        this.emit("binary-manager-ready-to-update");
+                        this.isUpdate = false;
+                    }else{
+                        this.emit("binary-manager-ready-to-start");
+                    }
                 }).catch((err) => {
                     this.logger.error(`node binary unzip! ${err}`)
                 })
@@ -62,13 +69,14 @@ class BinaryManager extends EventEmitter {
             store.set("binary-hash", this.binaryHash);
             store.set("binary-version", binData.clients.version);
             store.set("binary-bin", `${app.getPath('userData')}/${binInfo.bin}`);
-            this.DownloadNode(binInfo.url)
+            this.DownloadNode(binInfo.url, )
         }
     };
 
     Start = () => {
-        if (this.binaryHash) {
+        if (this.binaryHash && store.get("binary-bin")) {
             this.CheckUpdate();
+            this.emit("binary-manager-ready-to-start");
         }else{
             this.Download().then((data) => {
                 this.BinaryProcess(data);
@@ -81,10 +89,11 @@ class BinaryManager extends EventEmitter {
             this.logger.info("CheckUpdate");
             this.Download().then((data) => {
                 if (this.binaryHash !== this.Hash(data)){
+                    this.isUpdate = true;
                     this.BinaryProcess(data);
                 }
             });
-        }, 10000) // FIXME : 10분마다 확인 : 600000
+        }, 600000) // 10분마다 확인 : 600000
     };
 
     Stop = () => {

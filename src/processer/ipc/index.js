@@ -1,4 +1,5 @@
 import {ipcMain, shell} from "electron";
+import RpcCall from '../modules/RpcCall';
 
 export default () => {
     ipcMain.on('link:open', (event, link) => {
@@ -6,8 +7,19 @@ export default () => {
             shell.openExternal(link);
     });
 
-    ipcMain.on('download', (event) => {
+    ipcMain.on('call', (event, data) => {
+        RpcCall("eth_accounts", [], 1).then((data) => {
+            event.sender.send('get-result-success', data);
 
+        }).catch((err) => {
+
+            event.sender.send('get-result-error', err);
+        });
     });
+
+
+    ipcMain.on('node-kill', (e, data) => {
+
+    })
 }
 
