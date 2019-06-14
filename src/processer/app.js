@@ -14,11 +14,12 @@ class App {
     Create = () => {
         this.windows = new BrowserWindow({
             width: 900,
-            height: 800,
+            height: 600,
             webPreferences: {
                 nodeIntegration : true,
                 preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
-            }
+            },
+            resizable: false,
         });
 
         // setting menu

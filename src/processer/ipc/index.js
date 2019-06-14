@@ -16,10 +16,5 @@ export default () => {
             event.sender.send('get-result-error', err);
         });
     });
-
-
-    ipcMain.on('node-kill', (e, data) => {
-
-    })
 }
 
