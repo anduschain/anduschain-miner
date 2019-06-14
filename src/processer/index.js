@@ -1,4 +1,4 @@
-import { app } from 'electron';
+import { app, dialog } from 'electron';
 import MinerApp from './app';
 import ipc from './ipc';
 import binaryManager from './modules/BinaryManager';
@@ -13,23 +13,34 @@ function Start() {
     MinerApp.Create();
     ipc();
     binaryManager.Start();
-
-    // FIXME : 바이너리 상태 확인후 node running
-
-    console.log("-----nodeManager-----", nodeManager.isRunning)
-
-    nodeManager.Start();
-
-    console.log("-----nodeManager-----", nodeManager.isRunning)
-
     console.log("app started");
 }
 
 function Stop() {
     binaryManager.Stop();
-    nodeManager.Stop();
+    if (nodeManager.isRunning) {
+        nodeManager.Stop();
+    }
     console.log("app stopped");
 }
+
+// 바이너리 준비 완료 이벤트
+binaryManager.on('binary-manager-ready-to-start', () =>{
+    console.log('binary-manager-ready-to-start');
+    nodeManager.Start(false);
+});
+
+// 바이너리 업데이트 이벤트
+binaryManager.on('binary-manager-ready-to-update', () =>{
+    console.log('binary-manager-ready-to-update');
+    nodeManager.ReStart();
+});
+
+// 노드 프로세스 중단시 alert 호출 후 프로그램 종료
+nodeManager.on('node-manager-kill', () => {
+    dialog.showErrorBox("miner", "anduschain node killed, miner program will terminate.");
+    app.quit();
+});
 
 app.on('ready', () => {
     Start() // start instances
