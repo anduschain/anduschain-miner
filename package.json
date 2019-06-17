@@ -69,6 +69,7 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.1.0",
+    "@material-ui/icons": "^4.2.0",
     "compressing": "^1.4.0",
     "electron-is-dev": "^1.1.0",
     "electron-log": "^3.0.6",

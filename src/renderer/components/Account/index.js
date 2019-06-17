@@ -36,7 +36,7 @@ export default function Account(props) {
             </div>
             <div className={classes.container}>
                 <Typography className={classes.title} variant="subtitle2">Balance</Typography>
-                <Typography className={classes.content} variant="subtitle2">{`${props.balance} ${UNIT}`}</Typography>
+                <Typography className={classes.content} variant="subtitle2">{UNIT(props.balance)}</Typography>
             </div>
         </div>
     )
@@ -44,5 +44,5 @@ export default function Account(props) {
 
 Account.defaultProps = {
     address : "0x3ea44e564d176c46ae29c549055012159494ee48",
-    balance : "100",
+    balance : "100000",
 };

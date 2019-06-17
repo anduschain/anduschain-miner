@@ -35,11 +35,11 @@ class NodeManager extends EventEmitter {
 
             // setting event
             this.node.stdout.on('data', (data) => {
-                this.logger.info('stdout: ' + data);
+                this.logger.info(data);
             });
 
             this.node.stderr.on('data', (data) => {
-                this.logger.info('stderr: ' + data);
+                this.logger.info(data);
             });
 
             this.node.on('exit', (data) => {

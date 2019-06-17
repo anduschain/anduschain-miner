@@ -7,7 +7,7 @@ class App {
         this.windows = null
     }
 
-    get isWindows() {
+    get getWindows() {
         return this.windows;
     }
 

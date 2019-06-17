@@ -6,7 +6,12 @@ const COLOR = {
     white : "#ffffff",
 };
 
-const UNIT = 'Daon';
+const UNIT = (value) => {
+    if (value <= 0) {
+        return `0 Daon`;
+    }
+    return `${value / Math.pow(10, 18)} Daon`;
+};
 
 export {
     COLOR, UNIT

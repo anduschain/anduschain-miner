@@ -26,13 +26,11 @@ function Stop() {
 
 // 바이너리 준비 완료 이벤트
 binaryManager.on('binary-manager-ready-to-start', () =>{
-    console.log('binary-manager-ready-to-start');
     nodeManager.Start(false);
 });
 
 // 바이너리 업데이트 이벤트
 binaryManager.on('binary-manager-ready-to-update', () =>{
-    console.log('binary-manager-ready-to-update');
     nodeManager.ReStart();
 });
 
@@ -58,7 +56,7 @@ app.on('window-all-closed', () => {
 app.on('activate', () => {
     // On OS X it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
-    if (MinerApp.isWindows === null) {
+    if (MinerApp.getWindows === null) {
         MinerApp.Create();
     }
 });

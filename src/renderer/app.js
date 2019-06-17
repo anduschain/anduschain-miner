@@ -2,24 +2,32 @@ import React, {Component} from "react";
 import {logger} from "../modules/utils";
 import {ipcRenderer} from "electron";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { Layout, LeftArea, Buttons, RightArea } from './components';
+import { Layout, LeftArea, RightArea } from './components';
 
 class App extends Component {
     constructor(props){
         super(props);
         this.logger = new logger('renderer')
+        this.state = {
+            leftData : {
+                time : new Date(),
+                currentBlock : 0,
+                isMining : false,
+            }
+        }
     }
 
     componentDidMount() {
 
-        ipcRenderer.on('get-result-success', (event, data) => {
-            console.log(data)
-        });
+        // this.interval = setInterval(() => {
+        //     console.log("==========", "call setInterval")
+        //     ipcRenderer.send('get_node_info')
+        // }, 5000);
 
-        ipcRenderer.on('get-result-error', (event, err) => {
-            console.log(err)
-        });
+    }
 
+    componentWillMount() {
+        // clearInterval(this.interval)
     }
 
     render() {
