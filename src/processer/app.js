@@ -1,4 +1,4 @@
-import {BrowserWindow} from "electron";
+import {BrowserWindow, app} from "electron";
 import SetMenu from "./menu";
 import isDev from "electron-is-dev";
 
@@ -20,6 +20,7 @@ class App {
                 preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
             },
             resizable: false,
+            icon : `${app.getAppPath()}/resources/icon.png`,
         });
 
         // setting menu

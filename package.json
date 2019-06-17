@@ -12,7 +12,7 @@
     "lint": "echo \"No linting configured\"",
     "make:win": "electron-forge make --platform win32"
   },
-  "keywords": [],
+  "keywords": ["electron", "blockchain"],
   "author": "hakuna",
   "license": "MIT",
   "config": {
@@ -23,13 +23,8 @@
           "name": "@electron-forge/maker-squirrel",
           "config": {
             "name": "anduschain_miner",
+            "iconUrl" : "https://raw.githubusercontent.com/anduschain/anduschain-miner/master/resources/icon.ico?token=AEZZNIAWWZLYDIV4FVNV6RC5CAWYM",
             "setupIcon" : "./resources/icon.ico"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-dmg",
-          "config": {
-            "icon": "./resources/icon.icns"
           }
         },
         {
