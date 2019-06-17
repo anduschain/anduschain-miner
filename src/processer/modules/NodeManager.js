@@ -12,6 +12,7 @@ class NodeManager extends EventEmitter {
         this.running = false;
         this.args = [];
         this.path = null;
+        this.isUpdate = false;
     }
 
     get isRunning() {
@@ -19,6 +20,7 @@ class NodeManager extends EventEmitter {
     }
 
     Start = (isUpdate) => {
+        this.isUpdate = isUpdate;
         this.path = store.get("binary-bin");
         if (this.path) {
             this.logger.info("started anduschain node");
@@ -44,7 +46,7 @@ class NodeManager extends EventEmitter {
                 this.logger.info('exit: ' + data);
 
                 // node update 상황이 아닐때 호출 -> 비정상적인 종료
-                if (!isUpdate) {
+                if (!this.isUpdate) {
                     this.emit("node-manager-kill")
                 }
             });
@@ -60,8 +62,9 @@ class NodeManager extends EventEmitter {
     };
 
     Stop = () => {
-        this.node.kill();
+        this.isUpdate = true; // node will killed status
         this.running = false;
+        this.node.kill();
         this.logger.info("node killed")
     };
 
