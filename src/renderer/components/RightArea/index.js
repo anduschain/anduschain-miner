@@ -1,6 +1,8 @@
 import React from 'react';
-import {makeStyles} from "@material-ui/core";
+import {makeStyles, Typography, GridList, GridListTile} from "@material-ui/core";
 import {COLOR} from "../../constants";
+import Daonbase from '../Daonbase';
+import Account from '../Account';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -20,7 +22,23 @@ const useStyles = makeStyles(theme => ({
         '&::-webkit-scrollbar-thumb' : {
             display: "none",
         },
-    }
+        paddingBottom : '100px',
+    },
+    innerContainer : {
+        paddingTop : '30px',
+        paddingLeft : '40px',
+        paddingRight : '40px',
+    },
+    title : {
+        color : COLOR.white,
+        marginTop : '20px',
+        marginBottom : '20px',
+    },
+    accountContainer : {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+    },
 }));
 
 
@@ -30,7 +48,22 @@ export default function RightArea(props) {
     return (
         <div className={classes.root}>
             <div className={classes.container}>
-                {props.children}
+                <div className={classes.innerContainer}>
+                    <Typography className={classes.title} variant="h6">Daonbase</Typography>
+                    <Daonbase />
+                    <Typography className={classes.title} variant="h6">Accounts</Typography>
+                    <div className={classes.accountContainer}>
+                        <Account />
+                        <Account />
+                        <Account />
+                        <Account />
+                        <Account />
+                        <Account />
+                        <Account />
+                        <Account />
+                        <Account />
+                    </div>
+                </div>
             </div>
         </div>
     )

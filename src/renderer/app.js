@@ -27,38 +27,8 @@ class App extends Component {
             <React.Fragment>
                 <CssBaseline />
                 <Layout
-                    Left={(
-                        <LeftArea>
-                            <div>hohohoho</div>
-                            <div>hohohoho</div>
-                            <div>hohohoho</div>
-                            <div>hohohoho</div>
-                            <div>hohohoho</div>
-                            <Buttons.BigRect />
-                        </LeftArea>
-                    )}
-                    Right={(
-                        <RightArea>
-                            <h1>hohohoho</h1>
-                            <h1>hohohoho</h1>
-                            <h1>hohohoho</h1>
-                            <h1>hohohoho</h1>
-                            <h1>hohohoho</h1>
-                            <h1>hohohoho</h1>
-                            <h1>hohohoho</h1>
-                            <h1>hohohoho</h1>
-                            <h1>hohohoho</h1>
-                            <h1>hohohoho</h1>
-                            <h1>hohohoho</h1>
-                            <h1>hohohoho</h1>
-                            <h1>hohohoho</h1>
-                            <h1>hohohoho</h1>
-                            <h1>hohohoho</h1>
-                            <h1>hohohoho</h1>
-                            <h1>hohohoho</h1>
-                            <h1>hohohoho</h1>
-                        </RightArea>
-                    )}
+                    Left={(<LeftArea />)}
+                    Right={(<RightArea />)}
                 />
             </React.Fragment>
         )
