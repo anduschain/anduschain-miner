@@ -14,7 +14,8 @@ const styles = {
         backgroundColor : COLOR.black,
         width : '220px',
         alignItems : 'center',
-        paddingTop : "45px",
+        paddingTop : "20px",
+        height : '100%',
     },
     image : {
         width : "80px",

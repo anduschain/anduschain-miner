@@ -62,7 +62,7 @@ export default function AddAccount(props) {
                 type="password"
                 autoComplete="current-password"
                 margin="normal"
-                autoFocus={true}
+                autoFocus={false}
                 fullWidth={true}
                 required={true}
                 InputProps={{

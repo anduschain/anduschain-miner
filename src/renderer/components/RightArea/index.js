@@ -74,6 +74,11 @@ class RightArea extends Component {
     componentDidMount() {
         ipcRenderer.send('get_address');
 
+        let addr = localStorage.getItem('coinbase');
+        if (!addr) {
+            this.openModal("newAccountModal");
+        }
+
         this.interval = setInterval(() => {
             ipcRenderer.send('get_address');
         }, 1000);
@@ -87,10 +92,6 @@ class RightArea extends Component {
 
                 if (data.coinbase.length > 0) {
                     this.props.setCoinbase(data.coinbase[0].address)
-                }
-            }else{
-                if (!this.state.newAccountModal && !this.state.errorModal && !this.state.confirmModal) {
-                    this.openModal("newAccountModal");
                 }
             }
         });

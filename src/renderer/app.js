@@ -15,6 +15,7 @@ class App extends Component {
     setCoinbase = (addr) => {
         if (this.state.coinbase !== addr) {
             this.setState({coinbase : addr});
+            localStorage.setItem('coinbase', addr);
         }
     };
 
