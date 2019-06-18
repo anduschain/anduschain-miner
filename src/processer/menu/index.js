@@ -41,7 +41,7 @@ const template = [
         role: 'Help',
         submenu: [
             {
-                label: 'Go to Auschain web',
+                label: 'Go to anduschain.io',
                 click () { shell.openExternalSync('https://anduschain.io') }
             },
             {
