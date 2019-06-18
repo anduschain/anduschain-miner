@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
-import { COLOR } from "../../constants";
+import { COLOR, Images } from "../../constants";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -29,9 +29,7 @@ export default function BigRect({status, onClick}) {
 
     return (
         <div className={classes.root} onClick={onClick}>
-            <img src={
-                status ? require('../../assects/images/icon-stop@3x.png') : require('../../assects/images/icon-start@3x.png')
-            } className={classes.images}/>
+            <img src={status ? Images.stop : Images.start} className={classes.images}/>
             <Typography className={`${classes.white}`} variant="h6">{status ? 'STOP' : 'START'}</Typography>
             <Typography className={`${classes.white}`} variant="h6">MINING</Typography>
         </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {withStyles, Typography} from "@material-ui/core";
-import {COLOR} from "../../constants";
+import {COLOR, Images} from "../../constants";
 import {Buttons} from "../index";
 import moment from 'moment';
 import {ipcRenderer} from "electron";
@@ -152,7 +152,7 @@ class LeftArea extends Component {
 
         return (
             <div className={classes.root}>
-                <img src={require('../../../resources/icon.png')} className={classes.image}/>
+                <img src={Images.logo} className={classes.image}/>
                 <Typography className={`${classes.status} ${classes.white}`} variant="h6">Status</Typography>
                 <div className={classes.statusRect}>
                     <Typography variant="button" display="block" className={classes.blue}>
