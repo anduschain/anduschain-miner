@@ -27,7 +27,7 @@
           "config": {
             "name": "anduschain_miner",
             "iconUrl": "https://raw.githubusercontent.com/anduschain/anduschain-miner/master/resources/icon.ico?token=AEZZNIBBF7Y6SMVUXRC46U25CA6MI",
-            "setupIcon": ".src/resources/icon.ico"
+            "setupIcon": "./src/resources/icon.ico"
           }
         },
         {
