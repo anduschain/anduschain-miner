@@ -1,18 +1,14 @@
 import { app, Menu, shell } from 'electron';
-import { DefaultSetting, nodeOption } from '../config';
+import { DefaultSetting, nodeOption, VERSION } from '../config';
 
 const template = [
     {
         label: app.getName(),
         submenu: [
-            { role: 'about' },
-            { type: 'separator' },
-            { role: 'hide' },
-            { role: 'hideothers' },
-            { role: 'unhide' },
+            {label: `Version : ${VERSION}`},
             { type: 'separator' },
             {
-                label: 'backup',
+                label: 'Backup',
                 click () { shell.showItemInFolder(nodeOption.dataDir[1]) }
             },
             { type: 'separator' },
@@ -45,8 +41,16 @@ const template = [
         role: 'Help',
         submenu: [
             {
-                label: 'Apply Miner',
+                label: 'Go to Auschain web',
                 click () { shell.openExternalSync('https://anduschain.io') }
+            },
+            {
+                label: 'Apply Anduschainer',
+                click () { shell.openExternalSync('https://www.anduschain.io/ico/apply.html') }
+            },
+            {
+                label: 'Application form',
+                click () { shell.openExternalSync('https://www.anduschain.io/ico/applyForParticipation1.html') }
             }
         ]
     }

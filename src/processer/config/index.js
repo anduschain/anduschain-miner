@@ -55,5 +55,5 @@ const nodeOption = {
 };
 
 export {
-    nodeOption, DefaultSetting, isMac, PlatFrom
+    nodeOption, DefaultSetting, isMac, PlatFrom, VERSION
 }
