@@ -25,11 +25,75 @@ export default () => {
     });
 
     ipcMain.on('start_mining', (event, data) => {
+        RpcCall("personal_unlockAccount", [data.coinbase, data.password], 10)
+            .then(res => {
+                if (res.result === true) {
 
+                    RpcCall("miner_start", [], 10)
+                        .then(res => {
+                            // success { jsonrpc: '2.0', id: 10, result: null }
+                            if (!res.result) {
+                                event.sender.send('start_mining_result', {
+                                    success : true,
+                                    message : "start mining",
+                                })
+                            }else{
+                                event.sender.send('start_mining_result', {
+                                    success : false,
+                                    message : res.result,
+                                })
+                            }
+                        })
+                        .catch(err => {
+                            event.sender.send('start_mining_result', {
+                                success : false,
+                                message : err,
+                            })
+                        });
+                }else{
+                    event.sender.send('start_mining_result', {
+                        success : false,
+                        message : "Wrong password",
+                    })
+                }
+            })
+            .catch(err => {
+                event.sender.send('start_mining_result', {
+                    success : false,
+                    message : err,
+                })
+            })
+    });
+
+    ipcMain.on('stop_mining', (event, data) => {
+        RpcCall("miner_stop", [], 11)
+            .then(res => {
+                event.sender.send('stop_mining_result', {
+                    success : true,
+                    message : "mining stoped",
+                })
+            })
+            .catch(err => {
+                event.sender.send('stop_mining_result', {
+                    success : false,
+                    message : err,
+                })
+            })
     });
 
     ipcMain.on('add_account', (event, data) => {
-
+        RpcCall("personal_newAccount", [data.password], 1)
+            .then((res) => {
+                event.sender.send('make_account', {
+                    success : true,
+                    address : res.result,
+                })
+            })
+            .catch(err => {
+                event.sender.send('make_account', {
+                    success : false,
+                })
+            })
     });
 
     ipcMain.on('get_address', (event, data) => {
@@ -52,11 +116,19 @@ export default () => {
                             });
                         }
 
-                        event.sender.send('node_accounts', {
-                            success : true,
-                            accounts : reuslt,
-                            coinbase : reuslt.filter(item => item.address === values[values.length-1].result),
-                        })
+                        if (reuslt.length > 0) {
+                            event.sender.send('node_accounts', {
+                                success : true,
+                                accounts : reuslt,
+                                coinbase : reuslt.filter(item => item.address === values[values.length-1].result),
+                            })
+                        }else{
+                            event.sender.send('node_accounts', {
+                                success : false,
+                                accounts : [],
+                                coinbase : [],
+                            })
+                        }
                     })
                     .catch(err => {
                         event.sender.send('node_accounts', {

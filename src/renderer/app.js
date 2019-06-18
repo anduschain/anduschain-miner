@@ -1,42 +1,31 @@
 import React, {Component} from "react";
 import {logger} from "../modules/utils";
-import {ipcRenderer} from "electron";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Layout, LeftArea, RightArea } from './components';
 
 class App extends Component {
     constructor(props){
         super(props);
-        this.logger = new logger('renderer')
+        this.logger = new logger('renderer');
         this.state = {
-            leftData : {
-                time : new Date(),
-                currentBlock : 0,
-                isMining : false,
-            }
+            coinbase : "",
         }
-    }
+    };
 
-    componentDidMount() {
-
-        // this.interval = setInterval(() => {
-        //     console.log("==========", "call setInterval")
-        //     ipcRenderer.send('get_node_info')
-        // }, 5000);
-
-    }
-
-    componentWillMount() {
-        // clearInterval(this.interval)
-    }
+    setCoinbase = (addr) => {
+        if (this.state.coinbase !== addr) {
+            this.setState({coinbase : addr});
+        }
+    };
 
     render() {
+        const { coinbase } = this.state;
         return(
             <React.Fragment>
                 <CssBaseline />
                 <Layout
-                    Left={(<LeftArea />)}
-                    Right={(<RightArea />)}
+                    Left={(<LeftArea coinbase={coinbase}/>)}
+                    Right={(<RightArea setCoinbase={this.setCoinbase}/>)}
                 />
             </React.Fragment>
         )

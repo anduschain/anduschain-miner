@@ -6,6 +6,7 @@ const useStyles = makeStyles(theme => ({
     root : {
         display : 'flex',
         backgroundColor : COLOR.darkGray,
+        minWidth : "400px",
         alignItems: "center",
         flexDirection :'column',
         padding : "20px",
