@@ -20,7 +20,7 @@ class App {
                 preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
             },
             resizable: false,
-            icon : `${app.getAppPath()}/.webpack/renderer/main_window/icon.png`,
+            icon : `${app.getAppPath()}/.webpack/renderer/main_window/icon.icns`,
         });
 
         // setting menu

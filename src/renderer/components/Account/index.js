@@ -1,6 +1,8 @@
 import React from 'react';
 import {makeStyles, Typography} from "@material-ui/core";
 import {COLOR, UNIT} from "../../constants";
+import {clipboard} from "electron";
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -32,7 +34,10 @@ export default function Account(props) {
         <div className={classes.root}>
             <div className={classes.container}>
                 <Typography className={classes.title} variant="subtitle2">Address</Typography>
-                <Typography className={classes.content} variant="subtitle2" noWrap={true}>{props.address}</Typography>
+                <Typography className={classes.content} variant="subtitle2" noWrap={true} onClick={() =>{
+                    clipboard.writeText(props.address);
+                    alert(`Copied ${props.address}`);
+                }}>{props.address}</Typography>
             </div>
             <div className={classes.container}>
                 <Typography className={classes.title} variant="subtitle2">Balance</Typography>
