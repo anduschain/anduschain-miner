@@ -25,7 +25,7 @@ const logPath = () => {
 
 const DefaultSetting = {
     LOG_PATH : logPath(),
-    BINARY_URL : 'https://raw.githubusercontent.com/anduschain/andusChainGethBinary/master/nodeBinary.json',
+    BINARY_URL : 'https://raw.githubusercontent.com/anduschain/andusChainGethBinary/deb/nodeBinary.json',
 };
 
 const nodeDataDir = () => {
@@ -51,7 +51,6 @@ const nodeOption = {
     rpcPort : ['--rpcport', '8545'],
     dataDir : ['--datadir', nodeDataDir()],
     nedePort : ['--port', '50505'],
-    nedeClientPort : ['--clientPort', '50002'],
 };
 
 export {
