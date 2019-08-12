@@ -1,7 +1,7 @@
+import { app, ipcMain } from 'electron';
 import EventEmitter from 'events';
 import { spawn } from 'child_process';
 import { logger } from '../../modules/utils'
-import { nodeOption } from '../config';
 import store from "./Store";
 
 class NodeManager extends EventEmitter {
@@ -13,13 +13,17 @@ class NodeManager extends EventEmitter {
         this.args = [];
         this.path = null;
         this.isUpdate = false;
+
+        ipcMain.on("start_node", (event, data) => {
+            this.Start(false, data.nodeOption)
+        })
     }
 
     get isRunning() {
         return this.running;
     }
 
-    Start = (isUpdate) => {
+    Start = (isUpdate, option) => {
         this.isUpdate = isUpdate;
         this.path = store.get("binary-bin");
         if (this.path) {
@@ -27,7 +31,7 @@ class NodeManager extends EventEmitter {
             this.running = true;
 
             //setting args
-            this.args = nodeOption.defaultArgs.concat(nodeOption.testnet);
+            this.args = option;
             this.logger.info(`node running ${this.path} ${this.args}`);
 
             //start node

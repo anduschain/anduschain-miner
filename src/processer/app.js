@@ -19,7 +19,7 @@ class App {
                 nodeIntegration : true,
                 preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
             },
-            resizable: false,
+            resizable: true,
             icon : `${app.getAppPath()}/.webpack/renderer/main_window/icon.icns`,
         });
 

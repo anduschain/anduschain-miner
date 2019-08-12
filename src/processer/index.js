@@ -1,4 +1,4 @@
-import { app, dialog } from 'electron';
+import { app, dialog, ipcMain } from 'electron';
 import MinerApp from './app';
 import ipc from './ipc';
 import binaryManager from './modules/BinaryManager';
@@ -26,7 +26,7 @@ function Stop() {
 
 // 바이너리 준비 완료 이벤트
 binaryManager.on('binary-manager-ready-to-start', () =>{
-    nodeManager.Start(false);
+    //nodeManager.Start(false);
 });
 
 // 바이너리 업데이트 이벤트

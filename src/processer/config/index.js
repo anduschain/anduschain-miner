@@ -47,10 +47,9 @@ const nodeOption = {
         '--rpcapi', 'admin, eth, miner, txpool, personal, web3, net',
         '--cache', process.arch === 'x64' ? '1024' : '512'
     ],
-    testnet : '--testnet',
+    testnet : ['--testnet'],
     rpcPort : ['--rpcport', '8545'],
     dataDir : ['--datadir', nodeDataDir()],
-    nedePort : ['--port', '50505'],
 };
 
 export {

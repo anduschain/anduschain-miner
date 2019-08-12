@@ -1,50 +1,45 @@
 {
   "clients": {
-    "version": "0.6.11",
+    "version": "0.6.12",
     "platforms": {
       "linux": {
         "x64": {
           "download": {
-            "url": "https://github.com/anduschain/andusChainGethBinary/raw/master/linux/geth-linux-amd64-anduschain-0.6.11-anduschain-unstable.tar.gz",
+            "url": "https://github.com/anduschain/andusChainGethBinary/blob/deb/linux/godaon-linux-amd64.tar.gz",
             "type": "tar",
-            "md5": "cfe886537b4dfa244f1272de8a809499",
-            "bin": "geth-linux-amd64-anduschain-0.6.11-anduschain-unstable/geth"
+            "bin": "godaon-linux-amd64/godaon"
           }
         },
         "ia32": {
           "download": {
-            "url": "https://github.com/anduschain/andusChainGethBinary/raw/master/linux/geth-linux-386-anduschain-0.6.11-anduschain-unstable.tar.gz",
+            "url": "https://github.com/anduschain/andusChainGethBinary/raw/deb/linux/godaon-linux-386.tar.gz",
             "type": "tar",
-            "md5": "6b1b20651dcead52345a9c167ddafc1c",
-            "bin": "geth-linux-386-anduschain-0.6.11-anduschain-unstable/geth"
+            "bin": "godaon-linux-386/godaon"
           }
         }
       },
       "mac": {
         "x64": {
           "download": {
-            "url": "https://github.com/anduschain/andusChainGethBinary/raw/master/mac/geth-darwin-10.6-amd64-anduschain-0.6.11-anduschain-unstable.tar.gz",
+            "url": "https://github.com/anduschain/andusChainGethBinary/raw/deb/mac/godaon-darwin-10.6-amd64.tar.gz",
             "type": "tar",
-            "md5": "039d12553b4f40f50938d8d22f1016bf",
-            "bin": "geth-darwin-10.6-amd64-anduschain-0.6.11-anduschain-unstable/geth"
+            "bin": "godaon-darwin-10.6-amd64/godaon"
           }
         }
       },
       "win": {
         "x64": {
           "download": {
-            "url": "https://github.com/anduschain/andusChainGethBinary/raw/master/windows/geth-windows-4.0-amd64-anduschain-0.6.11-anduschain-unstable.zip",
+            "url": "https://github.com/anduschain/andusChainGethBinary/raw/deb/windows/godaon-windows-4.0-amd64.zip",
             "type": "zip",
-            "md5": "0212d724756369ea720a16303afb8304",
-            "bin": "geth-windows-4.0-amd64-anduschain-0.6.11-anduschain-unstable\\geth.exe"
+            "bin": "godaon-windows-4.0-amd64\\godaon.exe"
           }
         },
         "ia32": {
           "download": {
-            "url": "https://github.com/anduschain/andusChainGethBinary/raw/master/windows/geth-windows-4.0-386-anduschain-0.6.11-anduschain-unstable.zip",
+            "url": "https://github.com/anduschain/andusChainGethBinary/raw/deb/windows/godaon-windows-4.0-386.zip",
             "type": "zip",
-            "md5": "479430cbfecd48d7bd3db09e27b7b79e",
-            "bin": "geth-windows-4.0-386-anduschain-0.6.11-anduschain-unstable\\geth.exe"
+            "bin": "godaon-windows-4.0-386\\godaon.exe"
           }
         }
       }

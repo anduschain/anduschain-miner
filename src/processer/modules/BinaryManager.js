@@ -1,5 +1,5 @@
 // anduschain-miner : Web download
-import { app } from 'electron';
+import { app, ipcMain } from 'electron';
 import EventEmitter from 'events';
 import { get } from 'request';
 import { DefaultSetting, PlatFrom } from '../config';
@@ -16,6 +16,11 @@ class BinaryManager extends EventEmitter {
         this.binaryHash = store.get("binary-hash");
         this.logger = new logger('BinaryManager');
         this.isUpdate = false;
+        this.isBinary = false;
+
+        ipcMain.on('ready_to_binary', (event, data) => {
+            event.sender.send('ready_to_binary_ok', { status : this.isBinary})
+        })
     }
 
     Download = () => {
@@ -47,6 +52,7 @@ class BinaryManager extends EventEmitter {
                         this.isUpdate = false;
                     }else{
                         this.emit("binary-manager-ready-to-start");
+                        this.isBinary = true
                     }
                 }).catch((err) => {
                     this.logger.error(`node binary unzip! ${err}`)
@@ -77,6 +83,7 @@ class BinaryManager extends EventEmitter {
         if (this.binaryHash && store.get("binary-bin")) {
             this.CheckUpdate();
             this.emit("binary-manager-ready-to-start");
+            this.isBinary = true
         }else{
             this.Download().then((data) => {
                 this.BinaryProcess(data);
