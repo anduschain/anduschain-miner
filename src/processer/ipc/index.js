@@ -25,7 +25,7 @@ export default () => {
     });
 
     ipcMain.on('start_mining', (event, data) => {
-        RpcCall("personal_unlockAccount", [data.coinbase, data.password], 10)
+        RpcCall("personal_unlockCoinbase", [data.coinbase, data.password], 10)
             .then(res => {
                 if (res.result === true) {
 
