@@ -1,7 +1,7 @@
 {
   "name": "anduschain-miner",
   "productName": "anduschain-miner",
-  "version": "0.7.5",
+  "version": "0.7.6",
   "description": "anduschain miner electron application",
   "main": ".webpack/main",
   "scripts": {
@@ -27,8 +27,12 @@
           "name": "@electron-forge/maker-squirrel",
           "config": {
             "name": "anduschain_miner",
+            "authors" : "andus",
             "iconUrl": "https://raw.githubusercontent.com/anduschain/anduschain-miner/master/src/resources/icon.ico",
-            "setupIcon": "./src/resources/icon.ico"
+            "setupIcon": "./src/resources/icon.ico",
+            "certificateFile" : "./andus.pfx",
+            "certificatePassword" : "icm0801",
+            "copyright" : "Copyright ©2019 AndUs. All rights reserved."
           }
         },
         {

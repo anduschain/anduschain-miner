@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {withStyles, Typography} from "@material-ui/core";
+import {withStyles, Typography, CircularProgress} from "@material-ui/core";
 import {COLOR} from "../../constants";
 import Daonbase from '../Daonbase';
 import Account from '../Account';
@@ -56,6 +56,14 @@ const styles = theme => ({
     },
     white: {
         color: COLOR.white,
+    },
+    progress : {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: "center",
+        justifyContent: 'center',
+        width: '100%',
+        height: '100%',
     }
 });
 
@@ -126,31 +134,41 @@ class RightArea extends Component {
     };
 
     render() {
-        const { classes } = this.props;
+        const { classes, isSync } = this.props;
         const { coinbase, accounts, newAccountModal, errorModal, errorBody, confirmModal, confirmBody } = this.state;
 
         return (
             <div className={classes.root}>
                 <div className={classes.container}>
-                    <div className={classes.innerContainer}>
-                        <Typography className={classes.title} variant="h6">Daonbase</Typography>
-                        {
-                            coinbase.length > 0 && <Daonbase address={coinbase[0].address} balance={coinbase[0].balance}/>
-                        }
-                        <div className={classes.titleContiner}>
-                            <Typography className={classes.white} variant="h6">Accounts</Typography>
-                            <GenBtn title={'add account'} onPress={() =>this.openModal("newAccountModal")}/>
-                        </div>
-                        <div className={classes.accountContainer}>
-                            {
-                                accounts.length > 0 &&
-                                    accounts.map((item, i) => <Account address={item.address} balance={item.balance} key={i}/>)
-                            }
-                        </div>
-                        <AddAccount open={newAccountModal} onComplate={this.newAccount} />
-                        <Confirm open={errorModal} close={() => this.closeModal('errorModal')} error={true} body={errorBody}/>
-                        <Confirm open={confirmModal} close={() => this.closeModal('confirmModal')} body={confirmBody}/>
-                    </div>
+                    {
+                        !isSync ? (
+                            <div className={classes.innerContainer}>
+                                <Typography className={classes.title} variant="h6">Daonbase</Typography>
+                                {
+                                    coinbase.length > 0 && <Daonbase address={coinbase[0].address} balance={coinbase[0].balance}/>
+                                }
+                                <div className={classes.titleContiner}>
+                                    <Typography className={classes.white} variant="h6">Accounts</Typography>
+                                    <GenBtn title={'add account'} onPress={() =>this.openModal("newAccountModal")}/>
+                                </div>
+                                <div className={classes.accountContainer}>
+                                    {
+                                        accounts.length > 0 &&
+                                        accounts.map((item, i) => <Account address={item.address} balance={item.balance} key={i}/>)
+                                    }
+                                </div>
+                                <AddAccount open={newAccountModal} onComplate={this.newAccount} />
+                                <Confirm open={errorModal} close={() => this.closeModal('errorModal')} error={true} body={errorBody}/>
+                                <Confirm open={confirmModal} close={() => this.closeModal('confirmModal')} body={confirmBody}/>
+                            </div>
+                        ) : (
+                            <div className={classes.progress}>
+                                <CircularProgress color="secondary" />
+                                <Typography className={classes.title} variant="h6">Syncing...</Typography>
+                            </div>
+                        )
+                    }
+
                 </div>
             </div>
         )
@@ -160,7 +178,8 @@ class RightArea extends Component {
 export default withStyles(styles)(RightArea)
 
 RightArea.defaultProps = {
-    setCoinbase : (data) => console.log("setcoinbase", data)
+    setCoinbase : (data) => console.log("setcoinbase", data),
+    isSync : true,
 };
 
 

@@ -24,6 +24,26 @@ export default () => {
             })
     });
 
+    ipcMain.on('is_syncing', (event, data) => {
+        RpcCall("eth_syncing", null, 100)
+            .then(res => {
+                event.sender.send('chain_sync', {sync : !!res.result.currentBlock})
+            })
+            .catch(err => {
+                event.sender.send('chain_sync', {sync : true})
+            })
+    });
+
+    ipcMain.on('peer_count', (event, data) => {
+        RpcCall("admin_peers", null, 101)
+            .then(res => {
+                event.sender.send('peer', {peers : res.result.length})
+            })
+            .catch(err => {
+                event.sender.send('peer', {peers : 0})
+            })
+    });
+
     ipcMain.on('start_mining', (event, data) => {
         RpcCall("personal_unlockCoinbase", [data.coinbase, data.password], 10)
             .then(res => {

@@ -19,20 +19,30 @@ class App extends Component {
                 loading : false,
                 port : "50505",
             },
+            isSyncing : true,
+            peers : 0,
         };
     };
 
     componentDidMount() {
-        let option = localStorage.getItem('nodeOption')
+        let option = localStorage.getItem('nodeOption');
         if (option) {
             let opt = JSON.parse(option);
             this.setState({nodeOption : { loading : true, port : opt[7] ? opt[7] : "50505"}});
         }else{
-            this.setState({nodeOption : { loading : true }});
+            this.setState({nodeOption : { loading : true, port : "50505" }});
         }
 
         this.interval = setInterval(() => {
             ipcRenderer.send('ready_to_binary');
+        }, 1000);
+
+        this.intervalSync = setInterval(() => {
+            ipcRenderer.send('is_syncing');
+        }, 1000);
+
+        this.intervalPeers = setInterval(() => {
+            ipcRenderer.send('peer_count');
         }, 1000);
 
         ipcRenderer.on('ready_to_binary_ok', (event, data) => {
@@ -40,7 +50,22 @@ class App extends Component {
                 clearInterval(this.interval);
                 this.setState({nodeSettingModal : true});
             }
-        })
+        });
+
+        ipcRenderer.on('chain_sync', (event, data) => {
+            this.setState({isSyncing : data.sync});
+        });
+
+        ipcRenderer.on('peer', (event, data) => {
+            this.setState({peers : data.peers})
+        });
+
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+        clearInterval(this.intervalSync);
+        clearInterval(this.intervalPeers);
     }
 
     setCoinbase = (addr) => {
@@ -71,13 +96,13 @@ class App extends Component {
     closeModal = (key) => this.setState({[key] : false});
 
     render() {
-        const { coinbase, nodeSettingModal, errorModal, errorBody, nodeOption } = this.state;
+        const { peers, isSyncing, coinbase, nodeSettingModal, errorModal, errorBody, nodeOption } = this.state;
         return(
             <React.Fragment>
                 <CssBaseline />
                 <Layout
-                    Left={(<LeftArea coinbase={coinbase}/>)}
-                    Right={(<RightArea setCoinbase={this.setCoinbase}/>)}
+                    Left={(<LeftArea peers={peers} sync={isSyncing} coinbase={coinbase}/>)}
+                    Right={(<RightArea isSync={isSyncing} setCoinbase={this.setCoinbase}/>)}
                 />
                 {
                     nodeOption.loading && <NodeOption open={nodeSettingModal} onComplate={this.nodeSetting} default={nodeOption}/>

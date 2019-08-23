@@ -46,14 +46,13 @@ const styles = {
     },
     blue : {
         color : COLOR.blue,
-    }
+    },
 };
 
 class LeftArea extends Component {
 
     state = {
         blockNumber: 0,
-        syncing: false,
         mining: false,
         time: new Date().getTime(),
         errorModal: false,
@@ -148,8 +147,8 @@ class LeftArea extends Component {
     }
 
     render() {
-        const { classes } = this.props;
-        const { blockNumber, syncing, mining, time, confirmModal, confirmBody, errorModal, errorBody, unlockModal} = this.state;
+        const { classes, sync, peers } = this.props;
+        const { blockNumber, mining, time, confirmModal, confirmBody, errorModal, errorBody, unlockModal} = this.state;
 
         return (
             <div className={classes.root}>
@@ -157,12 +156,12 @@ class LeftArea extends Component {
                 <Typography className={`${classes.status} ${classes.white}`} variant="h6">Status</Typography>
                 <div className={classes.statusRect}>
                     <Typography variant="button" display="block" className={classes.blue}>
-                        {mining ? "MINING" : "STOP"}
+                        {!sync ? mining ? "MINING" : "STOP" : "SYNCING"}
                     </Typography>
                 </div>
                 <Typography className={classes.white} variant="h6">#Block Height</Typography>
                 <Typography className={`${classes.white} ${classes.time}`} variant="caption">
-                    {`${moment(time).format('YYYY-MM-DD hh:mm:ss')}`}
+                    {`${moment(time).format('YYYY-MM-DD hh:mm:ss')} (${peers})`}
                 </Typography>
                 <Typography className={`${classes.white} ${classes.blockNumber}`} variant="h6">{`#${blockNumber}`}</Typography>
                 <Buttons.BigRect status={mining} onClick={this.startMining} />
@@ -177,6 +176,8 @@ class LeftArea extends Component {
 
 LeftArea.defaultProps = {
     coinbase : "",
+    sync : true,
+    peers : 0,
 };
 
 export default withStyles(styles)(LeftArea);
