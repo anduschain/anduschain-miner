@@ -30,8 +30,6 @@
             "authors" : "andus",
             "iconUrl": "https://raw.githubusercontent.com/anduschain/anduschain-miner/master/src/resources/icon.ico",
             "setupIcon": "./src/resources/icon.ico",
-            "certificateFile" : "./andus.pfx",
-            "certificatePassword" : "",
             "copyright" : "Copyright ©2019 AndUs. All rights reserved."
           }
         },
