@@ -21,6 +21,7 @@ class App extends Component {
             },
             isSyncing : true,
             peers : 0,
+            option : [],
         };
     };
 
@@ -45,10 +46,26 @@ class App extends Component {
             ipcRenderer.send('peer_count');
         }, 1000);
 
+        this.intervalUpdate = setInterval(() => {
+            ipcRenderer.send('ready_to_binary_update');
+        }, 1000);
+
         ipcRenderer.on('ready_to_binary_ok', (event, data) => {
             if (data.status) {
                 clearInterval(this.interval);
-                this.setState({nodeSettingModal : true});
+                this.setState({nodeSettingModal : true})
+            }
+        });
+
+        ipcRenderer.on('ready_to_update', (event, data) => {
+            if(data.status) {
+                ipcRenderer.send('stop_node');
+            }
+        });
+
+        ipcRenderer.on('ready_to_restart_node', (event, data) => {
+            if(data.status) {
+                ipcRenderer.send('start_node', { nodeOption : this.state.option });
             }
         });
 
@@ -66,6 +83,7 @@ class App extends Component {
         clearInterval(this.interval);
         clearInterval(this.intervalSync);
         clearInterval(this.intervalPeers);
+        clearInterval(this.intervalUpdate);
     }
 
     setCoinbase = (addr) => {
@@ -83,6 +101,8 @@ class App extends Component {
             option = Object.assign([], option.concat(nodeOption.testnet));
             option = Object.assign([], option.concat(['--port', payload.port]));
             localStorage.setItem('nodeOption', JSON.stringify(option));
+
+            this.setState({option : option});
             ipcRenderer.send('start_node', { nodeOption : option });
         }else{
             if (payload.error !== 'close') {

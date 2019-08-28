@@ -1,6 +1,7 @@
 {
   "clients": {
     "version": "0.6.12",
+    "timeStamp" : "1566966370338",
     "platforms": {
       "linux": {
         "x64": {

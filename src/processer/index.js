@@ -24,16 +24,6 @@ function Stop() {
     console.log("app stopped");
 }
 
-// 바이너리 준비 완료 이벤트
-binaryManager.on('binary-manager-ready-to-start', () =>{
-    //nodeManager.Start(false);
-});
-
-// 바이너리 업데이트 이벤트
-binaryManager.on('binary-manager-ready-to-update', () =>{
-    nodeManager.ReStart();
-});
-
 // 노드 프로세스 중단시 alert 호출 후 프로그램 종료
 nodeManager.on('node-manager-kill', () => {
     dialog.showErrorBox("miner", "anduschain node killed, miner program will terminate.");

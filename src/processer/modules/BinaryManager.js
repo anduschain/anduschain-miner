@@ -17,10 +17,19 @@ class BinaryManager extends EventEmitter {
         this.logger = new logger('BinaryManager');
         this.isUpdate = false;
         this.isBinary = false;
+        this.nodeStart = false;
 
         ipcMain.on('ready_to_binary', (event, data) => {
             event.sender.send('ready_to_binary_ok', { status : this.isBinary})
-        })
+        });
+
+        ipcMain.on('ready_to_binary_update', (event, data) => {
+            if (!this.nodeStart) {
+                event.sender.send('ready_to_update', { status : this.isUpdate})
+            }else{
+                event.sender.send('ready_to_restart_node', { status : this.nodeStart })
+            }
+        });
     }
 
     Download = () => {
@@ -36,22 +45,24 @@ class BinaryManager extends EventEmitter {
         })
     };
 
-    DownloadNode = (url) => {
+    DownloadNode = (url, key) => {
         let splitPath = parse(url).path.split("/");
-        let output = `${app.getPath('userData')}/${splitPath[splitPath.length - 1]}`;
+        let output = `${app.getPath('userData')}/${key}/${splitPath[splitPath.length - 1]}`;
+        let path = `${app.getPath('userData')}/${key}`;
+        if(!fs.existsSync(path)) {
+            fs.mkdirSync(path)
+        }
         get({url: url, encoding: null}, (err, resp, body) => {
             if(err) throw err;
             fs.writeFile(output, body, (err) => {
                 if(err) throw err;
                 this.logger.info(`node binary written! ${output}`);
-
-                unzip(PlatFrom, output).then(() => {
+                unzip(PlatFrom, output, path).then(() => {
                     this.logger.info(`node binary unzip! ${output}`);
                     if (this.isUpdate) {
-                        this.emit("binary-manager-ready-to-update");
+                        this.nodeStart = true;
                         this.isUpdate = false;
                     }else{
-                        this.emit("binary-manager-ready-to-start");
                         this.isBinary = true
                     }
                 }).catch((err) => {
@@ -60,7 +71,7 @@ class BinaryManager extends EventEmitter {
             });
         });
 
-
+        this.nodeStart = false;
     };
 
     Hash = (data) => {
@@ -74,19 +85,21 @@ class BinaryManager extends EventEmitter {
             this.binaryHash = this.Hash(binData);
             store.set("binary-hash", this.binaryHash);
             store.set("binary-version", binData.clients.version);
-            store.set("binary-bin", `${app.getPath('userData')}/${binInfo.bin}`);
-            this.DownloadNode(binInfo.url, )
+
+            let key = `${binData.clients.version}-${binData.clients.timeStamp}`;
+            store.set("binary-bin", `${app.getPath('userData')}/${key}/${binInfo.bin}`);
+            this.DownloadNode(binInfo.url, key)
         }
     };
 
     Start = () => {
         if (this.binaryHash && store.get("binary-bin")) {
             this.CheckUpdate();
-            this.emit("binary-manager-ready-to-start");
             this.isBinary = true
         }else{
             this.Download().then((data) => {
                 this.BinaryProcess(data);
+                this.CheckUpdate();
             });
         }
     };

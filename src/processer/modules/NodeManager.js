@@ -15,8 +15,16 @@ class NodeManager extends EventEmitter {
         this.isUpdate = false;
 
         ipcMain.on("start_node", (event, data) => {
-            this.Start(false, data.nodeOption)
-        })
+            this.Start(false, data.nodeOption);
+        });
+
+        ipcMain.on("stop_node", (event, data) => {
+            this.Stop();
+        });
+
+        ipcMain.on("update_start_node", (event, data) => {
+            this.Start(true, data.nodeOption);
+        });
     }
 
     get isRunning() {
@@ -24,6 +32,10 @@ class NodeManager extends EventEmitter {
     }
 
     Start = (isUpdate, option) => {
+        if (this.running) {
+            return
+        }
+
         this.isUpdate = isUpdate;
         this.path = store.get("binary-bin");
         if (this.path) {
@@ -59,17 +71,13 @@ class NodeManager extends EventEmitter {
         }
     };
 
-    ReStart = () => {
-        this.Stop();
-        this.Start(true);
-        this.logger.info("node restarted")
-    };
-
     Stop = () => {
-        this.isUpdate = true; // node will killed status
-        this.running = false;
-        this.node.kill();
-        this.logger.info("node killed")
+        if (this.running) {
+            this.isUpdate = true; // node will killed status
+            this.running = false;
+            this.node.kill();
+            this.logger.info("node killed")
+        }
     };
 
 
