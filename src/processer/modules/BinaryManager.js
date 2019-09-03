@@ -27,7 +27,7 @@ class BinaryManager extends EventEmitter {
             if (!this.nodeStart) {
                 event.sender.send('ready_to_update', { status : this.isUpdate})
             }else{
-                dialog.showErrorBox("miner", "Anduschain godaon Updated and Restart.");
+                dialog.showErrorBox("miner", "Anduschain godaon Updated and Restart");
                 event.sender.send('ready_to_restart_node', { status : this.nodeStart })
             }
         });
