@@ -1,7 +1,7 @@
 {
   "name": "anduschain-miner",
   "productName": "anduschain-miner",
-  "version": "0.7.7",
+  "version": "0.7.9",
   "description": "anduschain miner electron application",
   "main": ".webpack/main",
   "scripts": {

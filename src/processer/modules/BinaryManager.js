@@ -1,5 +1,5 @@
 // anduschain-miner : Web download
-import { app, ipcMain } from 'electron';
+import {app, dialog, ipcMain} from 'electron';
 import EventEmitter from 'events';
 import { get } from 'request';
 import { DefaultSetting, PlatFrom } from '../config';
@@ -27,6 +27,7 @@ class BinaryManager extends EventEmitter {
             if (!this.nodeStart) {
                 event.sender.send('ready_to_update', { status : this.isUpdate})
             }else{
+                dialog.showErrorBox("miner", "Anduschain godaon Updated and Restart.");
                 event.sender.send('ready_to_restart_node', { status : this.nodeStart })
             }
         });
