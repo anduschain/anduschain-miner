@@ -85,7 +85,6 @@ class BinaryManager extends EventEmitter {
             this.binaryHash = this.Hash(binData);
             store.set("binary-hash", this.binaryHash);
             store.set("binary-version", binData.clients.version);
-
             let key = `${binData.clients.version}-${binData.clients.timeStamp}`;
             store.set("binary-bin", `${app.getPath('userData')}/${key}/${binInfo.bin}`);
             this.DownloadNode(binInfo.url, key)
