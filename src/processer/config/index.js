@@ -25,7 +25,7 @@ const logPath = () => {
 
 const DefaultSetting = {
     LOG_PATH : logPath(),
-    BINARY_URL : 'https://raw.githubusercontent.com/anduschain/andusChainGethBinary/deb/nodeBinary.json',
+    BINARY_URL : 'https://raw.githubusercontent.com/anduschain/anduschain-miner/master/src/processer/nodeBinary.json',
 };
 
 const nodeDataDir = () => {
