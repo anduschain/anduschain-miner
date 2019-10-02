@@ -1,19 +1,19 @@
 {
   "clients": {
-    "version": "0.6.15",
-    "timeStamp" : "1569593304438",
+    "version": "0.6.17",
+    "timeStamp" : "1569984765055",
     "platforms": {
       "linux": {
         "x64": {
           "download": {
-            "url": "https://github.com/anduschain/go-anduschain/releases/download/v0.6.15/godaon-linux-amd64.tar.gz",
+            "url": "https://github.com/anduschain/go-anduschain/releases/download/v0.6.17/godaon-linux-amd64.tar.gz",
             "type": "tar",
             "bin": "godaon-linux-amd64/godaon"
           }
         },
         "ia32": {
           "download": {
-            "url": "https://github.com/anduschain/go-anduschain/releases/download/v0.6.15/godaon-linux-386.tar.gz",
+            "url": "https://github.com/anduschain/go-anduschain/releases/download/v0.6.17/godaon-linux-386.tar.gz",
             "type": "tar",
             "bin": "godaon-linux-386/godaon"
           }
@@ -22,7 +22,7 @@
       "mac": {
         "x64": {
           "download": {
-            "url": "https://github.com/anduschain/go-anduschain/releases/download/v0.6.15/godaon-darwin-10.6-amd64.tar.gz",
+            "url": "https://github.com/anduschain/go-anduschain/releases/download/v0.6.17/godaon-darwin-10.6-amd64.tar.gz",
             "type": "tar",
             "bin": "godaon-darwin-10.6-amd64/godaon"
           }
@@ -31,14 +31,14 @@
       "win": {
         "x64": {
           "download": {
-            "url": "https://github.com/anduschain/go-anduschain/releases/download/v0.6.15/godaon-windows-4.0-amd64.zip",
+            "url": "https://github.com/anduschain/go-anduschain/releases/download/v0.6.17/godaon-windows-4.0-amd64.zip",
             "type": "zip",
             "bin": "godaon-windows-4.0-amd64\\godaon.exe"
           }
         },
         "ia32": {
           "download": {
-            "url": "https://github.com/anduschain/go-anduschain/releases/download/v0.6.15/godaon-windows-4.0-386.zip",
+            "url": "https://github.com/anduschain/go-anduschain/releases/download/v0.6.17/godaon-windows-4.0-386.zip",
             "type": "zip",
             "bin": "godaon-windows-4.0-386\\godaon.exe"
           }
