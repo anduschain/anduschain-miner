@@ -10,7 +10,8 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\"",
-    "make:win": "electron-forge make --platform win32"
+    "make:win64": "electron-forge make --platform win32 --arch=x64",
+    "make:win32": "electron-forge make --platform win32 --arch=ia32"
   },
   "keywords": [
     "electron",
@@ -20,55 +21,7 @@
   "author": "hakuna",
   "license": "MIT",
   "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "anduschain_miner",
-            "authors": "andus",
-            "iconUrl": "https://raw.githubusercontent.com/anduschain/anduschain-miner/master/src/resources/icon.ico",
-            "setupIcon": "./src/resources/icon.ico",
-            "copyright": "Copyright ©2019 AndUs. All rights reserved."
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin",
-            "win32",
-            "linux"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ],
-      "plugins": [
-        [
-          "@electron-forge/plugin-webpack",
-          {
-            "mainConfig": "./webpack.main.config.js",
-            "renderer": {
-              "config": "./webpack.renderer.config.js",
-              "entryPoints": [
-                {
-                  "html": "./src/renderer/index.html",
-                  "js": "./src/renderer/index.js",
-                  "name": "main_window"
-                }
-              ]
-            }
-          }
-        ]
-      ]
-    }
+    "forge": "forge.config.js"
   },
   "dependencies": {
     "@material-ui/core": "^4.1.0",
