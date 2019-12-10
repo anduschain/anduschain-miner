@@ -98,7 +98,7 @@ class App extends Component {
         if (success) {
             let option = [];
             option = Object.assign([], option.concat(nodeOption.defaultArgs));
-            option = Object.assign([], option.concat(nodeOption.testnet));
+            //option = Object.assign([], option.concat(nodeOption.testnet));
             option = Object.assign([], option.concat(['--port', payload.port]));
             localStorage.setItem('nodeOption', JSON.stringify(option));
 
